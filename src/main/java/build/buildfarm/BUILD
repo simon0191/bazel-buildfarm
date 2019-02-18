@@ -1,4 +1,5 @@
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+load("//tools:maven.bzl", "pom_file")
 
 package(
     default_visibility = ["//src:__subpackages__"],
@@ -299,4 +300,73 @@ java_library(
         "@remote_apis//:build_bazel_remote_execution_v2_remote_execution_java_grpc",
         "@remote_apis//:build_bazel_remote_execution_v2_remote_execution_java_proto",
     ],
+)
+
+# pom files
+
+pom_file(
+    name = "server_pom",
+    targets = [":server"],
+    group_id = "build.buildfarm",
+    artifact_id = "server"
+)
+pom_file(
+    name = "operationqueue-worker_pom",
+    targets = [":operationqueue-worker"],
+    group_id = "build.buildfarm",
+    artifact_id = "operationqueue-worker"
+)
+pom_file(
+    name = "worker_pom",
+    targets = [":worker"],
+    group_id = "build.buildfarm",
+    artifact_id = "worker"
+)
+pom_file(
+    name = "memory-instance_pom",
+    targets = [":memory-instance"],
+    group_id = "build.buildfarm",
+    artifact_id = "memory-instance"
+)
+pom_file(
+    name = "server-instance_pom",
+    targets = [":server-instance"],
+    group_id = "build.buildfarm",
+    artifact_id = "server-instance"
+)
+pom_file(
+    name = "http-proxy_pom",
+    targets = [":http-proxy"],
+    group_id = "build.buildfarm",
+    artifact_id = "http-proxy"
+)
+pom_file(
+    name = "cas_pom",
+    targets = [":cas"],
+    group_id = "build.buildfarm",
+    artifact_id = "cas"
+)
+pom_file(
+    name = "stub-instance_pom",
+    targets = [":stub-instance"],
+    group_id = "build.buildfarm",
+    artifact_id = "stub-instance"
+)
+pom_file(
+    name = "instance_pom",
+    targets = [":instance"],
+    group_id = "build.buildfarm",
+    artifact_id = "instance"
+)
+pom_file(
+    name = "ac_pom",
+    targets = [":ac"],
+    group_id = "build.buildfarm",
+    artifact_id = "ac"
+)
+pom_file(
+    name = "common_pom",
+    targets = [":common"],
+    group_id = "build.buildfarm",
+    artifact_id = "common"
 )

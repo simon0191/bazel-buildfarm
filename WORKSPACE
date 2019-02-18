@@ -3,6 +3,13 @@ workspace(name = "build_buildfarm")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# Needed to generate pom files to upload artifacts to the artifactory
+http_archive(
+    name = "google_bazel_common",
+    strip_prefix = "bazel-common-758c17dbc7b724e64f915b5496708cd01ffd38d5",
+    urls = ["https://github.com/google/bazel-common/archive/758c17dbc7b724e64f915b5496708cd01ffd38d5.zip"],
+)
+
 # Needed for "well-known protos" and @com_google_protobuf//:protoc.
 http_archive(
     name = "com_google_protobuf",
