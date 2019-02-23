@@ -302,71 +302,83 @@ java_library(
     ],
 )
 
-# pom files
+# bundle
+# Since there's no rule to merge multiple jars, this rule merges all the jars of all the
+# java_library rules in this package using the `resource_jars` attribute.
+java_library(
+    name = "bundle",
+    # java_library requires srcs and hence this dummy class.
+    srcs = ["Ignore.java"],
+    # All the deps from all the java_library rules in this package
+    deps = [
+        "@googleapis//:google_bytestream_bytestream_java_grpc",
+        "@googleapis//:google_bytestream_bytestream_java_proto",
+        "@googleapis//:google_longrunning_operations_java_grpc",
+        "@googleapis//:google_longrunning_operations_java_proto",
+        "@googleapis//:google_rpc_code_java_proto",
+        "@googleapis//:google_rpc_error_details_java_proto",
+        "@googleapis//:google_rpc_status_java_proto",
+        "@googleapis//:google_watch_v1_java_proto",
+        "@remote_apis//:build_bazel_remote_execution_v2_remote_execution_java_grpc",
+        "@remote_apis//:build_bazel_remote_execution_v2_remote_execution_java_proto",
+        "@remote_apis//:build_bazel_semver_java_proto",
+        "//3rdparty/jvm/com/github/pcj:google_options",
+        "//3rdparty/jvm/com/google/auth:google_auth_library_credentials",
+        "//3rdparty/jvm/com/google/auth:google_auth_library_oauth2_http",
+        "//3rdparty/jvm/com/google/code/findbugs:jsr305",
+        "//3rdparty/jvm/com/google/guava",
+        "//3rdparty/jvm/com/google/protobuf:protobuf_java_util",
+        "//3rdparty/jvm/com/google/protobuf:protobuf_java",
+        "//3rdparty/jvm/io/grpc:grpc_auth",
+        "//3rdparty/jvm/io/grpc:grpc_context",
+        "//3rdparty/jvm/io/grpc:grpc_core",
+        "//3rdparty/jvm/io/grpc:grpc_netty",
+        "//3rdparty/jvm/io/grpc:grpc_protobuf",
+        "//3rdparty/jvm/io/grpc:grpc_stub",
+        "//3rdparty/jvm/io/netty:netty_buffer",
+        "//3rdparty/jvm/io/netty:netty_codec_http",
+        "//3rdparty/jvm/io/netty:netty_codec",
+        "//3rdparty/jvm/io/netty:netty_common",
+        "//3rdparty/jvm/io/netty:netty_handler",
+        "//3rdparty/jvm/io/netty:netty_transport_native_epoll",
+        "//3rdparty/jvm/io/netty:netty_transport_native_kqueue",
+        "//3rdparty/jvm/io/netty:netty_transport_native_unix_common",
+        "//3rdparty/jvm/io/netty:netty_transport",
+        "//src/main/protobuf:build_buildfarm_v1test_buildfarm_java_proto",
+        "//src/main/protobuf:libbuild_buildfarm_v1test_buildfarm_java_grpc-src.jar",
+    ],
+    resource_jars = [
+        ":libac.jar",
+        ":libcas.jar",
+        ":libcommon.jar",
+        ":libhttp-proxy.jar",
+        ":libinstance.jar",
+        ":libmemory-instance.jar",
+        ":liboperationqueue-worker.jar",
+        ":libserver-instance.jar",
+        ":libserver.jar",
+        ":libstub-instance.jar",
+        ":libworker.jar",
+        "//src/main/protobuf:libbuild_buildfarm_v1test_buildfarm_java_grpc.jar",
+        # Include all the sources
+        ":libac-src.jar",
+        ":libcas-src.jar",
+        ":libcommon-src.jar",
+        ":libhttp-proxy-src.jar",
+        ":libinstance-src.jar",
+        ":libmemory-instance-src.jar",
+        ":liboperationqueue-worker-src.jar",
+        ":libserver-instance-src.jar",
+        ":libserver-src.jar",
+        ":libstub-instance-src.jar",
+        ":libworker-src.jar",
+        "//src/main/protobuf:libbuild_buildfarm_v1test_buildfarm_java_grpc-src.jar",
+    ]
+)
 
 pom_file(
-    name = "server_pom",
-    targets = [":server"],
+    name = "bundle_pom",
+    targets = [":bundle"],
     group_id = "build.buildfarm",
-    artifact_id = "server"
-)
-pom_file(
-    name = "operationqueue-worker_pom",
-    targets = [":operationqueue-worker"],
-    group_id = "build.buildfarm",
-    artifact_id = "operationqueue-worker"
-)
-pom_file(
-    name = "worker_pom",
-    targets = [":worker"],
-    group_id = "build.buildfarm",
-    artifact_id = "worker"
-)
-pom_file(
-    name = "memory-instance_pom",
-    targets = [":memory-instance"],
-    group_id = "build.buildfarm",
-    artifact_id = "memory-instance"
-)
-pom_file(
-    name = "server-instance_pom",
-    targets = [":server-instance"],
-    group_id = "build.buildfarm",
-    artifact_id = "server-instance"
-)
-pom_file(
-    name = "http-proxy_pom",
-    targets = [":http-proxy"],
-    group_id = "build.buildfarm",
-    artifact_id = "http-proxy"
-)
-pom_file(
-    name = "cas_pom",
-    targets = [":cas"],
-    group_id = "build.buildfarm",
-    artifact_id = "cas"
-)
-pom_file(
-    name = "stub-instance_pom",
-    targets = [":stub-instance"],
-    group_id = "build.buildfarm",
-    artifact_id = "stub-instance"
-)
-pom_file(
-    name = "instance_pom",
-    targets = [":instance"],
-    group_id = "build.buildfarm",
-    artifact_id = "instance"
-)
-pom_file(
-    name = "ac_pom",
-    targets = [":ac"],
-    group_id = "build.buildfarm",
-    artifact_id = "ac"
-)
-pom_file(
-    name = "common_pom",
-    targets = [":common"],
-    group_id = "build.buildfarm",
-    artifact_id = "common"
+    artifact_id = "bundle"
 )

@@ -2,3 +2,4 @@ bazel-*
 .ijwb/
 .vscode/
 tmp/
+.DS_Store
